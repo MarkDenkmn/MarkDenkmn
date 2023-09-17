@@ -114,7 +114,12 @@ $Attachment = "$dir\output.txt"
 $Message = New-Object Net.Mail.MailMessage($EmailFrom, $EmailTo, $Subject, $Body)
 $Message.Attachments.Add($Attachment)
 
-
+try {
+    $SMTPClient.Send($Message)
+    Write-Host "Email sent successfully."
+} catch {
+    Write-Host "Failed to send email. Error: $($_.Exception.Message)"
+}
 
 # Clean up
 Remove-Item -Path $dir -Recurse -Force
