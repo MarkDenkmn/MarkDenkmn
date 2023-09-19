@@ -129,17 +129,3 @@ Remove-MpPreference -ExclusionPath $dir
 # Remove the script from the system
 Clear-History
 
-# Define the constant values from the Windows API
-$WinAPI = Add-Type -TypeDefinition @"
-using System;
-using System.Runtime.InteropServices;
-
-public class WinAPI {
-    [DllImport("user32.dll")]
-    public static extern void LockWorkStation();
-}
-"@
-
-# Call the LockWorkStation function to lock the computer
-[WinAPI]::LockWorkStation()
-
