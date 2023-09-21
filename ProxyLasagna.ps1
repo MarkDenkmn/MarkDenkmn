@@ -12,8 +12,12 @@ $proxy.Address = $proxyServer
 [system.net.webrequest]::defaultwebproxy = $proxy
 [system.net.webrequest]::defaultwebproxy.Credentials = [System.Net.CredentialCache]::DefaultNetworkCredentials
 
-# Download and run the script
-$scriptContent = (Invoke-WebRequest -Uri $scriptURL -Proxy $proxy).Content
+# Download the script content
+$webClient = New-Object System.Net.WebClient
+$webClient.Proxy = $proxy
+$scriptContent = $webClient.DownloadString($scriptURL)
+
+# Run the downloaded script
 Invoke-Expression -Command $scriptContent
 
 # Remove the proxy settings to avoid affecting other PowerShell sessions
