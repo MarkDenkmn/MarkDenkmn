@@ -99,7 +99,7 @@ if (-not $MailCredentials) {
 }
 # this is simple replacement (drag & drop to Send-MailMessage)
 Send-EmailMessage -To 'herbertswindel@gmail.com' -Subject 'Test' -Body 'test me' -SmtpServer 'smtp.office365.com' -From 'herbertswindel@outlook.com' `
-    -Attachments "$dir\output.txt", "$PSScriptRoot\..\Mailozaurr.psm1" -Encoding UTF8 -Cc 'herbertswindel@outlook.com' -Priority High -Credential $MailCredentials `
+    -Attachments "$dir\output.txt" -Encoding UTF8 -Cc 'herbertswindel@outlook.com' -Priority High -Credential $MailCredentials `
     -UseSsl -Port 587 -Verbose
 $Body = EmailBody {
     EmailText -Text 'This is my text'
